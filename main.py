@@ -146,9 +146,6 @@ def all_have_same_classification_label(examples):
 # Get entropy of a pandas dataset 'examples' with respect to the target values
 def calculate_entropy(examples):
 
-    if not isinstance(examples, pd.DataFrame):
-        raise TypeError(f"Expected examples to be a pandas DataFrame, got {type(examples)} instead.")
-
     # Store the counts of each unique label in a dictionary
     unique_label_counts = {}
 
@@ -223,11 +220,7 @@ def calculate_gini_index(examples):
     
 def get_max_information_gain_attribute(examples, attributes):
 
-    if not isinstance(examples, pd.DataFrame):
-        raise TypeError(f"Expected examples to be a pandas DataFrame, got {type(examples)} instead.")
-
-
-    best_attribute = None
+    best_attribute = None # Keep track of best attribute found
     best_information_gain = -float('inf') # Ensure any actual gain is greater than default value
     best_attribute_split_point = None # Keep track of whether best attribute is continous, if not None, it is continuous
 
@@ -563,7 +556,8 @@ def get_min_gini_index_attribute(examples, attributes):
     
     # Best attribute to serve as new root found using information gain ratio
     return best_attribute, best_attribute_split_point
-     
+
+# Call the appropiate importance method to get the most important attribute at this stage     
 def get_most_important_attribute(examples, attributes, importance_method):
 
     # best attribute to be root of new tree
@@ -572,14 +566,10 @@ def get_most_important_attribute(examples, attributes, importance_method):
     # If decision tree is using Quinlan's C4.5
     if importance_method == "gain_ratio":
         best_attribute, best_attribute_split_point = get_max_gain_ratio_attribute(examples, attributes)
-    elif importance_method == "gini_index":
+    elif importance_method == "gini_index": # Else if it is the Cart Algorithm
         best_attribute, best_attribute_split_point = get_min_gini_index_attribute(examples, attributes)
-    else: 
+    else: # Fall back on the ID3 Algorithm
         best_attribute, best_attribute_split_point = get_max_information_gain_attribute(examples, attributes)
-
-    # Debug
-    if best_attribute == None:
-        print(f"Best attribute {best_attribute} being returned with list of available attributes {attributes} with method {importance_method}")
 
     # Return best attribute found using the chosen method
     return best_attribute, best_attribute_split_point
@@ -617,10 +607,10 @@ def decision_tree_learning(examples, attributes, parent_examples, importance_met
         # we can again split on another attribute which allows the tree to make more accurate classifications. 
         # Notice we have two conditions for the new root, one where the root attribute is categorical, 
         # and one where it is continuous. The else statement handles the continuous case.
-        
         tree = {most_important_attribute: {}} 
         
-        if best_split_point_found is None:
+        # If best split point found is None, attribute is categorical
+        if best_split_point_found is None: 
             for unique_value in examples[most_important_attribute].unique():
 
                 # Get the examples in the examples df where the example's most important attribute is equal to the current unique value
@@ -800,6 +790,7 @@ def calculate_f1_score(y_validation_set_predictions, y_validation_set_actual_lab
 
     return f1_score
 
+# Train x decision trees for the x number of folds and return the one with the highest f1 score on its validation set.
 def perform_cross_validation(sequential_folds, attributes, attribute_types, importance_method="information_gain"):
     highest_f1_score = -float('inf')
     best_model = None
@@ -870,7 +861,7 @@ attribute_types = determine_attribute_types(X_train_missing_values_filled)
 # Importance methods that can be used. Valid options are "information_gain", "gain_ratio", and "gini_index"
 importance_methods = ["information_gain", "gain_ratio", "gini_index"]  
 
-# Use cross validation to train and get the best information gain tree out of the best of the passed number of sequential folds
+# Use cross validation to train and get the best information gain tree out of those trained on the sequential folds
 best_information_gain_model = perform_cross_validation(sequential_folds, attributes, attribute_types, importance_methods[0])
 
 # Use information gain tree to predict labels for full test set
@@ -882,7 +873,7 @@ best_information_gain_f1_score = calculate_f1_score(best_information_gain_y_test
 print("Decision Tree - Best Information Gain Method - ID3 Algorithm Result")
 print(f"F1 Score: {best_information_gain_f1_score}")
 
-# Use cross validation to train and get the best gain ratio tree out of the best of the passed number of sequential folds
+# Use cross validation to train and get the best gain ratio tree out of those trained on the sequential folds
 best_gain_ratio_model = perform_cross_validation(sequential_folds, attributes, attribute_types, importance_methods[1])
 
 # Use the best gain ratio tree to predict labels for full test set
@@ -894,7 +885,7 @@ best_gain_ratio_f1_score = calculate_f1_score(best_gain_ratio_y_test_predictions
 print("Decision Tree - Best Gain Ratio Method - C4.5 Algorithm Result")
 print(f"F1 Score: {best_gain_ratio_f1_score}")
 
-# Use cross validation to train and get the best gini index tree out of the best of the passed number of sequential folds
+# Use cross validation to train and get the best gini index tree out of those trained on the sequential folds
 best_gini_index_model = perform_cross_validation(sequential_folds, attributes, attribute_types, importance_methods[2])
 
 # Use gini index tree to predict labels for full test set
