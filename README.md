@@ -38,7 +38,7 @@ python main.py
   - If results differ, ensure that the same random seed is used as well as the same training and test data.
 
 ## Results Interpretation:
-Based on the results of the image shown below, we can interpret the following:
+Based on the results of the image shown above, we can interpret the following:
 - The Cart Algorithm, which is a decision tree strategy that utilizes the Gini Index importance method in determining the next attribute to split on, has the highest F1 score, the harmonic mean of the model’s precision and recall.
   - Precision simply means, out of the number of labels we predicted positive, what was the portion that was actually positive.
   - Recall, on the other hand, means that out of the total number of positive labels, what was the portion that we were able to predict as positive.
