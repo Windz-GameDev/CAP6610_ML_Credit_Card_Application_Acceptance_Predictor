@@ -1,11 +1,6 @@
-# CAP 6610 – Machine Learning (Spring 2024)
-## Project 1
-### 3/1/2024
-#### Aaron Goldstein
+# Credit Card Application Acceptance Predictor for CAP 6610 – Machine Learning (Spring 2024)
 
-## Credit Card Application Acceptance Predictor
-
-### Brief Program Description
+## Brief Program Description
 This program performs the following tasks:
 - Loads data from two files in a data folder in the project directory:
   - `test.data`
@@ -24,7 +19,7 @@ This program performs the following tasks:
   - In the decision tree learning algorithm, when attempting to get the plurality target either because examples were empty or the number of attributes left to split on is 0, if there are two plurality target values, the chosen label for that leaf node is randomly selected to avoid bias.
   - The Python `random` module is used as a tool to help make these operations possible. The seed was arbitrarily chosen to be 42 so results can easily be recreated.
 
-### Installation Instructions:
+## Installation Instructions:
 - The program was developed with Python 3.11.5 in mind and tested using the Anaconda environment.
 - The code uses the following libraries and modules:
   - Pandas (Not in Python Standard library, needs to be installed with pip to environment if not using an environment which already has it)
@@ -35,10 +30,10 @@ This program performs the following tasks:
 python main.py
 ```
 - After doing so, the program should display the following results:
-  ![image](https://github.com/Windz-GameDev/CAP6610_Project_1_ML/assets/97154040/40b10c05-3be5-4dc8-8e90-3eec500171b4)
+  - ![image](https://github.com/Windz-GameDev/CAP6610_Project_1_ML/assets/97154040/40b10c05-3be5-4dc8-8e90-3eec500171b4)
   - If results differ, ensure that the same random seed is used as well as the same training and test data.
 
-### Results Interpretation:
+## Results Interpretation:
 Based on the results of the image shown below, we can interpret the following:
 - The Cart Algorithm, which is a decision tree strategy that utilizes the Gini Index importance method in determining the next attribute to split on, has the highest F1 score, the harmonic mean of the model’s precision and recall.
   - Precision simply means, out of the number of labels we predicted positive, what was the portion that was actually positive.
@@ -51,5 +46,5 @@ Based on the results of the image shown below, we can interpret the following:
   - Information Gain (ID3)
 - In conclusion, for the given data, we should use the Cart algorithm for the best possible predictions in determining whether a credit card will be accepted based on given X features.
 
-### Disclaimer:
+## Disclaimer:
 This project was created as a class project for learning and academic purposes and is not intended to be used in a professional or business pipeline. For such purposes, I would direct your attention to https://scikit-learn.org/stable/index.html
