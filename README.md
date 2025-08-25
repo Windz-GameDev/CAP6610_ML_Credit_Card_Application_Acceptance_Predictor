@@ -1,7 +1,7 @@
 # Credit Card Application Acceptance Predictor for CAP 6610 – Machine Learning (Spring 2024)
 
 ## Brief Program Description
-In short, this program trains various decision tree models using three importance methods and credit card application training data. It then uses these models to predict the acceptance or rejection of credit card applications on test datasets. The importance methods supported are Information Gain, Gain Ratio, and Gini Index.
+In short, this program trains various decision tree models using three importance methods and credit card application training data. It then uses these models to predict the acceptance or rejection of credit card applications on the test data. The importance methods supported are Information Gain, Gain Ratio, and Gini Index.
 
 The dataset used can be found at – https://archive.ics.uci.edu/ml/datasets/Credit+Approval
 
