@@ -17,7 +17,7 @@ The dataset used can be found at – https://archive.ics.uci.edu/ml/datasets/Cre
   - The best of these ten different decision tree models is selected for each importance method using its calculated F1 score on its validation set. (There were thirty models trained in total, and three were kept, each trained with a different method)
 - The best three models were then used to predict labels on the test dataset, and their corresponding F1 scores are calculated and printed to the console.
 - All functions such as the recursive decision tree algorithm learning algorithm, the tree prediction and traversal algorithm, the importance method calculations (information gain, gain ratio, gini index), the F1 score calculations, etc., are all calculated from scratch.
-  - Note: Pandas is used extensively to store data in a way that can be effectively and efficiently manipulated.
+  - Note: Pandas is used extensively to store data in a way that it can be effectively and efficiently manipulated.
 - Two key random operations are used in the program:
   - During tree traversal (example prediction), when an example’s categorical attribute value is not recognized when attempting to move to a subtree, the prediction algorithm attempts to use the modes for that attribute of the training data in the order they were calculated by pandas. If none of the modes can be used to traverse to a subtree, the subtree is randomly selected from the available ones.
   - In the decision tree learning algorithm, when attempting to get the plurality target either because examples were empty or the number of attributes left to split on is 0, if there are two plurality target values, the chosen label for that leaf node is randomly selected to avoid bias.
